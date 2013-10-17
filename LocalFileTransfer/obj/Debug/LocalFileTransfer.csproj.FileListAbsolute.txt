@@ -1,0 +1,12 @@
+c:\users\zac\documents\visual studio 2012\Projects\LocalFileTransfer\LocalFileTransfer\bin\Debug\LocalFileTransfer.exe
+c:\users\zac\documents\visual studio 2012\Projects\LocalFileTransfer\LocalFileTransfer\bin\Debug\LocalFileTransfer.pdb
+c:\users\zac\documents\visual studio 2012\Projects\LocalFileTransfer\LocalFileTransfer\obj\Debug\LocalFileTransfer.Form1.resources
+c:\users\zac\documents\visual studio 2012\Projects\LocalFileTransfer\LocalFileTransfer\obj\Debug\LocalFileTransfer.Properties.Resources.resources
+c:\users\zac\documents\visual studio 2012\Projects\LocalFileTransfer\LocalFileTransfer\obj\Debug\LocalFileTransfer.csproj.GenerateResource.Cache
+c:\users\zac\documents\visual studio 2012\Projects\LocalFileTransfer\LocalFileTransfer\obj\Debug\LocalFileTransfer.exe
+c:\users\zac\documents\visual studio 2012\Projects\LocalFileTransfer\LocalFileTransfer\obj\Debug\LocalFileTransfer.pdb
+C:\Users\Zac\Documents\Visual Studio 2012\Projects\LocalFileTransfer\LocalFileTransfer\obj\Debug\LocalFileTransfer.csprojResolveAssemblyReference.cache
+C:\Users\Zac\Documents\Visual Studio 2012\Projects\LocalFileTransfer\LocalFileTransfer\bin\Debug\LiteCode.dll
+C:\Users\Zac\Documents\Visual Studio 2012\Projects\LocalFileTransfer\LocalFileTransfer\bin\Debug\SecureSocketProtocol2.dll
+C:\Users\Zac\Documents\Visual Studio 2012\Projects\LocalFileTransfer\LocalFileTransfer\bin\Debug\LiteCode.pdb
+C:\Users\Zac\Documents\Visual Studio 2012\Projects\LocalFileTransfer\LocalFileTransfer\bin\Debug\SecureSocketProtocol2.pdb
