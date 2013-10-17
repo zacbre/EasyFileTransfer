@@ -35,10 +35,30 @@ namespace LocalFileTransfer
             f = new LiteServer(1085);            
             f.onClientConnect += (Client cli) =>
             {
-                Console.WriteLine("Client connected from " + cli.RemoteIp);
-                cli.aClient.ShareClass("filesendlol", typeof(FileSend));
-                clientx.Add(cli);
-                listBox1.Items.Add(cli.RemoteIp);
+                //Ask to allow connection.
+                if (MessageBox.Show("Client is connecting from " + cli.RemoteIp + ". Allow this connection?", "Connection", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == System.Windows.Forms.DialogResult.Yes)
+                {
+
+                    Console.WriteLine("Client connected from " + cli.RemoteIp);
+                    cli.aClient.ShareClass("filesendlol", typeof(FileSend));
+                    clientx.Add(cli);
+                    listBox1.Items.Add(cli.RemoteIp);
+                    //attempt to connect back.
+                    if (x != null && !x.Connected)
+                    {
+                        x = new LiteClient(cli.RemoteIp, 1085);
+                        textBox1.Text = cli.RemoteIp;
+                        if (x.Connected)
+                        {
+                            button1.Text = "Disconnect";
+                            textBox1.ReadOnly = true;
+                        }
+                    }
+                }
+                else
+                {
+                    cli.Disconnect();
+                }
             };
             f.onClientDisconnect += (Client cli) =>
             {
