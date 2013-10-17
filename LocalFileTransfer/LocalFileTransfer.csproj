@@ -32,6 +32,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="LiteCode, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\LiteCode.dll</HintPath>
+    </Reference>
+    <Reference Include="SecureSocketProtocol2, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\SecureSocketProtocol2.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
@@ -69,16 +77,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\..\..\Dropbox\BriskGit\Brisk\LiteCode\LiteCode.csproj">
-      <Project>{3f12fc08-671d-4003-9566-4a49c604955d}</Project>
-      <Name>LiteCode</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\Dropbox\BriskGit\Brisk\SecureSocketProtocol2\SecureSocketProtocol2\SecureSocketProtocol2.csproj">
-      <Project>{158d26c2-6132-4285-b99a-b42383a10c3b}</Project>
-      <Name>SecureSocketProtocol2</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

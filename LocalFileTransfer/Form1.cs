@@ -9,6 +9,8 @@ using System.Windows.Forms;
 using LiteCode.Server;
 using LiteCode;
 using System.IO;
+using System.Net;
+using System.Net.Sockets;
 namespace LocalFileTransfer
 {
     public partial class Form1 : Form
@@ -30,6 +32,7 @@ namespace LocalFileTransfer
             notifyicon = notifyIcon1;
             notifyicon.Text = "LocalFileTransfer";
             notifyicon.Visible = true;
+            label1.Text = "Listening for connections at " + LocalIPAddress() + "...";
             //Start a TCP server.
             label1.AllowDrop = true;
             f = new LiteServer(1085);            
@@ -78,7 +81,21 @@ namespace LocalFileTransfer
             button1.Text = "Connect";
             textBox1.ReadOnly = false;
         }
-
+        public string LocalIPAddress()
+        {
+            IPHostEntry host;
+            string localIP = "";
+            host = Dns.GetHostEntry(Dns.GetHostName());
+            foreach (IPAddress ip in host.AddressList)
+            {
+                if (ip.AddressFamily == AddressFamily.InterNetwork)
+                {
+                    localIP = ip.ToString();
+                    break;
+                }
+            }
+            return localIP;
+        }
         private void button1_Click(object sender, EventArgs e)
         {
             if (button1.Text == "Disconnect")
