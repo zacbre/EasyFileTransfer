@@ -47,9 +47,10 @@ namespace LocalFileTransfer
                     clientx.Add(cli);
                     listBox1.Items.Add(cli.RemoteIp);
                     //attempt to connect back.
-                    if (x != null && !x.Connected)
+                    if (x == null || !x.Connected)
                     {
                         x = new LiteClient(cli.RemoteIp, 1085);
+                        x.onClientDisconnect += x_onClientDisconnect;
                         textBox1.Text = cli.RemoteIp;
                         if (x.Connected)
                         {
@@ -67,6 +68,8 @@ namespace LocalFileTransfer
             {
                 clientx.Remove(cli);
                 listBox1.Items.Remove(cli.RemoteIp);
+                //button1.Text = "Connect";
+                //textBox1.ReadOnly = false;
             };
             /*x = new LiteClient("127.0.0.1", 1084);
             textBox1.Text = "127.0.0.1";
@@ -179,21 +182,27 @@ namespace LocalFileTransfer
         [RemoteExecution]
         public void ReceivedFile(byte[] file, string filename)
         {
-            if (!File.Exists(filename))
+            //ask to receive file.
+            string dir = Environment.CurrentDirectory + "\\Received\\";
+            Directory.CreateDirectory(dir);
+            if (MessageBox.Show("Receive the file " + filename + "?", "File Transfer Incoming", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
             {
-                File.WriteAllBytes(filename, file);
-            }
-            else
-            {
-                if (MessageBox.Show("The file " + filename + " already exists! Overwrite?", "File Already Exists!", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                if (!File.Exists(filename))
                 {
-                    File.WriteAllBytes(filename, file);
+                    File.WriteAllBytes(dir + filename, file);
                 }
+                else
+                {
+                    if (MessageBox.Show("The file " + filename + " already exists! Overwrite?", "File Already Exists!", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                    {
+                        File.WriteAllBytes(dir + filename, file);
+                    }
+                }
+                ((Form1)Form.ActiveForm).notifyicon.BalloonTipIcon = ToolTipIcon.Info;
+                ((Form1)Form.ActiveForm).notifyicon.BalloonTipText = "Successfully received file " + filename;
+                ((Form1)Form.ActiveForm).notifyicon.BalloonTipTitle = "File Transfer";
+                ((Form1)Form.ActiveForm).notifyicon.ShowBalloonTip(10000);
             }
-            ((Form1)Form.ActiveForm).notifyicon.BalloonTipIcon = ToolTipIcon.Info;
-            ((Form1)Form.ActiveForm).notifyicon.BalloonTipText = "Successfully received file " + filename;
-            ((Form1)Form.ActiveForm).notifyicon.BalloonTipTitle = "File Transfer";
-            ((Form1)Form.ActiveForm).notifyicon.ShowBalloonTip(10000);
         }
       
     }
