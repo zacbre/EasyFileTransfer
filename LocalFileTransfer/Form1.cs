@@ -39,7 +39,7 @@ namespace LocalFileTransfer
             f.onClientConnect += (Client cli) =>
             {
                 //Ask to allow connection.
-                if (MessageBox.Show("Client is connecting from " + cli.RemoteIp + ". Allow this connection?", "Connection", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == System.Windows.Forms.DialogResult.Yes)
+                if (MessageBox.Show("Client is connecting from " + cli.RemoteIp + ". Allow this connection?", "Incoming Connection", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == System.Windows.Forms.DialogResult.Yes)
                 {
 
                     Console.WriteLine("Client connected from " + cli.RemoteIp);
@@ -68,6 +68,7 @@ namespace LocalFileTransfer
             {
                 clientx.Remove(cli);
                 listBox1.Items.Remove(cli.RemoteIp);
+                fs = null;
                 //button1.Text = "Connect";
                 //textBox1.ReadOnly = false;
             };
@@ -83,6 +84,7 @@ namespace LocalFileTransfer
         {
             button1.Text = "Connect";
             textBox1.ReadOnly = false;
+            fs = null;
         }
         public string LocalIPAddress()
         {
@@ -130,37 +132,44 @@ namespace LocalFileTransfer
         Send fs = null;
         private void label2_DragDrop(object sender, DragEventArgs e)
         {
-            string[] FileList = (string[])e.Data.GetData(DataFormats.FileDrop, false);
-            //
-            foreach (string i in FileList)
+            try
             {
-                if (Directory.Exists(i)) //directory
+                string[] FileList = (string[])e.Data.GetData(DataFormats.FileDrop, false);
+                //
+                foreach (string i in FileList)
                 {
-                    //zip file? nah
-                }
-                else
-                {
-                    if (x.Connected)
+                    if (Directory.Exists(i)) //directory
                     {
-                        if(fs == null)
-                        {
-                            fs = x.aClient.GetSharedClass<Send>("filesendlol");  
-                        }
-                        fs.ReceivedFile(File.ReadAllBytes(i), Path.GetFileName(i));//
+                        //zip file? nah
                     }
                     else
                     {
-                        foreach (Client cli in clientx)
+                        if (x.Connected)
                         {
                             if (fs == null)
                             {
-                                fs = cli.aClient.GetSharedClass<Send>("filesendlol");
+                                fs = x.aClient.GetSharedClass<Send>("filesendlol");
                             }
                             fs.ReceivedFile(File.ReadAllBytes(i), Path.GetFileName(i));//
                         }
+                        else
+                        {
+                            foreach (Client cli in clientx)
+                            {
+                                if (fs == null)
+                                {
+                                    fs = cli.aClient.GetSharedClass<Send>("filesendlol");
+                                }
+                                fs.ReceivedFile(File.ReadAllBytes(i), Path.GetFileName(i));//
+                            }
+                        }
                     }
+                    //disconnect and reconnect.
                 }
-                //disconnect and reconnect.
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
             }
         }
 
@@ -176,6 +185,27 @@ namespace LocalFileTransfer
         {
             Environment.Exit(0);
         }
+
+        private void contextMenuStrip1_Opening(object sender, CancelEventArgs e)
+        {
+
+        }
+
+        private void disconnectClientToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (listBox1.SelectedItems.Count > 0)
+            {
+                string ip = listBox1.SelectedItems[0].ToString();
+                foreach(Client cl in clientx)
+                {
+                    if (cl.RemoteIp == ip)
+                    {
+                        cl.Disconnect();
+                        break;
+                    }
+                }
+            }
+        }
     }
     class FileSend : Send
     {
@@ -187,7 +217,7 @@ namespace LocalFileTransfer
             Directory.CreateDirectory(dir);
             if (MessageBox.Show("Receive the file " + filename + "?", "File Transfer Incoming", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
             {
-                if (!File.Exists(filename))
+                if (!File.Exists(dir + filename))
                 {
                     File.WriteAllBytes(dir + filename, file);
                 }
