@@ -2,5 +2,7 @@ EasyFileTransfer
 ================
 
 An easy way to transfer files between multiple PCs.
-
-Credits to DragonHunter for LiteCode and SSP.
+Soon:
+- Adding accounts for over-the-internet filetransfers without manually typing in IPs.
+- Folder transfer support.
+- Encrypting network traffic on the fly.
