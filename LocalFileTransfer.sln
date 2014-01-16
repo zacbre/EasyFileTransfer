@@ -1,13 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.20617.1 PREVIEW
+VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LocalFileTransfer", "LocalFileTransfer\LocalFileTransfer.csproj", "{2C493AAA-58E2-4E77-B1C8-768AD2C375B7}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LiteCode", "..\..\..\..\Dropbox\BriskGit\Brisk\LiteCode\LiteCode.csproj", "{3F12FC08-671D-4003-9566-4A49C604955D}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SecureSocketProtocol2", "..\..\..\..\Dropbox\BriskGit\Brisk\SecureSocketProtocol2\SecureSocketProtocol2\SecureSocketProtocol2.csproj", "{158D26C2-6132-4285-B99A-B42383A10C3B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,14 +15,6 @@ Global
 		{2C493AAA-58E2-4E77-B1C8-768AD2C375B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2C493AAA-58E2-4E77-B1C8-768AD2C375B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2C493AAA-58E2-4E77-B1C8-768AD2C375B7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3F12FC08-671D-4003-9566-4A49C604955D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3F12FC08-671D-4003-9566-4A49C604955D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3F12FC08-671D-4003-9566-4A49C604955D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3F12FC08-671D-4003-9566-4A49C604955D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{158D26C2-6132-4285-B99A-B42383A10C3B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{158D26C2-6132-4285-B99A-B42383A10C3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{158D26C2-6132-4285-B99A-B42383A10C3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{158D26C2-6132-4285-B99A-B42383A10C3B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
