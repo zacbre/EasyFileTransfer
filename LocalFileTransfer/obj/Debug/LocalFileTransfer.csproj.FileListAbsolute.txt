@@ -17,3 +17,5 @@ C:\Users\Zac\Documents\GitHub\EasyFileTransfer\LocalFileTransfer\obj\Debug\Local
 C:\Users\Zac\Documents\GitHub\EasyFileTransfer\LocalFileTransfer\obj\Debug\LocalFileTransfer.csproj.GenerateResource.Cache
 C:\Users\Zac\Documents\GitHub\EasyFileTransfer\LocalFileTransfer\obj\Debug\LocalFileTransfer.exe
 C:\Users\Zac\Documents\GitHub\EasyFileTransfer\LocalFileTransfer\obj\Debug\LocalFileTransfer.pdb
+C:\Users\Administrator\Documents\GitHub\EasyFileTransfer\LocalFileTransfer\obj\Debug\LocalFileTransfer.exe
+C:\Users\Administrator\Documents\GitHub\EasyFileTransfer\LocalFileTransfer\obj\Debug\LocalFileTransfer.pdb
