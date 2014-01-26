@@ -64,61 +64,67 @@ namespace LocalFileTransfer
                 {
                     double ret = (double)pbytes + ((double)((double)tbytes / 1024));
                     ret = ret / (DateTime.Now - lastRead).TotalSeconds;
+                    ret = ret / 10;
                     lastRead = DateTime.Now;
                     string s = ret.ToString();
                     if (s.Length > 6)
                         s = s.Substring(0, 6);
-                    return s + " Pb";
+                    return s + " PB";
                 }
                 else if (tbytes > 0)
                 {
                     double ret = (double)tbytes + ((double)((double)gbytes / 1024));
                     ret = ret / (DateTime.Now - lastRead).TotalSeconds;
+                    ret = ret / 10;
                     lastRead = DateTime.Now;
                     string s = ret.ToString();
                     if (s.Length > 6)
                         s = s.Substring(0, 6);
-                    return s + " Tb";
+                    return s + " TB";
                 }
                 else if (gbytes > 0)
                 {
                     double ret = (double)gbytes + ((double)((double)mbytes / 1024));
                     ret = ret / (DateTime.Now - lastRead).TotalSeconds;
+                    ret = ret / 10;
                     lastRead = DateTime.Now;
                     string s = ret.ToString();
                     if (s.Length > 6)
                         s = s.Substring(0, 6);
-                    return s + " Gb";
+                    return s + " GB";
                 }
                 else if (mbytes > 0)
                 {
                     double ret = (double)mbytes + ((double)((double)kbytes / 1024));
                     ret = ret / (DateTime.Now - lastRead).TotalSeconds;
+                    ret = ret / 10;
                     lastRead = DateTime.Now;
                     string s = ret.ToString();
                     if (s.Length > 6)
                         s = s.Substring(0, 6);
-                    return s + " Mb";
+                    return s + " MB";
                 }
                 else if (kbytes > 0)
                 {
                     double ret = (double)kbytes + ((double)((double)bytes / 1024));
                     ret = ret / (DateTime.Now - lastRead).TotalSeconds;
+                    ret = ret / 10;
                     lastRead = DateTime.Now;
                     string s = ret.ToString();
                     if (s.Length > 6)
                         s = s.Substring(0, 6);
-                    return s + " Kb";
+                    return s + " KB";
                 }
                 else
                 {
                     double ret = bytes;
                     ret = ret / (DateTime.Now - lastRead).TotalSeconds;
+                    ret = ret / 10;
                     lastRead = DateTime.Now;
                     string s = ret.ToString();
                     if (s.Length > 6)
                         s = s.Substring(0, 6);
-                    return s + " b";
+                    return s + " B";
                 }
             }
         }
@@ -207,34 +213,38 @@ namespace LocalFileTransfer
             else if (tbytes > 0)
             {
                 double ret = (double)tbytes + ((double)((double)gbytes / 1024));
+                ret = ret / 10;
                 string s = ret.ToString();
                 if (s.Length > 6)
                     s = s.Substring(0, 6);
-                return s + " Tb";
+                return s + " TB";
             }
             else if (gbytes > 0)
             {
                 double ret = (double)gbytes + ((double)((double)mbytes / 1024));
+                ret = ret / 10;
                 string s = ret.ToString();
                 if (s.Length > 6)
                     s = s.Substring(0, 6);
-                return s + " Gb";
+                return s + " GB";
             }
             else if (mbytes > 0)
             {
                 double ret = (double)mbytes + ((double)((double)kbytes / 1024));
+                ret = ret / 10;
                 string s = ret.ToString();
                 if (s.Length > 6)
                     s = s.Substring(0, 6);
-                return s + " Mb";
+                return s + " MB";
             }
             else if (kbytes > 0)
             {
                 double ret = (double)kbytes + ((double)((double)bytes / 1024));
+                ret = ret / 10;
                 string s = ret.ToString();
                 if (s.Length > 6)
                     s = s.Substring(0, 6);
-                return s + " Kb";
+                return s + " KB";
             }
             else
             {
