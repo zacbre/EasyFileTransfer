@@ -190,7 +190,7 @@ namespace LocalFileTransfer
             f = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             f.Bind(new IPEndPoint(IPAddress.Any, int.Parse(textBox2.Text)));
             f.Listen(50000);
-            label1.Text = "Listening for connections at " + LocalIPAddress() + textBox2.Text + "...";
+            label1.Text = string.Format("Listening for connections at {0}:{1}...",LocalIPAddress(), textBox2.Text);
             button2.Enabled = false;
             textBox2.ReadOnly = true;
             new Thread(new ThreadStart(delegate() {
@@ -200,7 +200,7 @@ namespace LocalFileTransfer
                                 Client cli = new Client((Socket)_socket, true, this);
                                 //Ask to allow connection.
                                 if (MessageBox.Show("Client is connecting from " + cli.RemoteIp + ". Allow this connection?", "Incoming Connection", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == System.Windows.Forms.DialogResult.Yes) {
-
+                                    //Client must be confirmed to send files, etc.
                                     Console.WriteLine("Client connected from " + cli.RemoteIp);
                                     clientx.Add(cli);
                                     listBox1.Items.Add(cli.RemoteIp);
