@@ -25,7 +25,7 @@ namespace LocalFileTransfer
             InitializeComponent();
             CheckForIllegalCrossThreadCalls = false;
         }
-        string dir = Environment.CurrentDirectory + "\\Received\\";
+        string dir = Environment.CurrentDirectory + @"\Received\";
         void notifyicon_BalloonTipClicked(object sender, EventArgs e)
         {
             //open the folder location.

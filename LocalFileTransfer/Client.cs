@@ -171,7 +171,7 @@ namespace LocalFileTransfer
                                 timer.Start();
                                 ulong step = 0;
                                 ulong total = toreceive;
-                                using (BinaryWriter f = new BinaryWriter(File.Open(Environment.CurrentDirectory + "\\Received\\" + filename, FileMode.Create, FileAccess.Write, FileShare.None)))
+                                using (BinaryWriter f = new BinaryWriter(File.Open(Environment.CurrentDirectory + @"\Received\" + filename, FileMode.Create, FileAccess.Write, FileShare.None)))
                                 {
                                     while (toreceive > 0)
                                     {
