@@ -41,33 +41,9 @@ namespace LocalFileTransfer
             notifyicon.Visible = true;
             notifyicon.BalloonTipClicked += notifyicon_BalloonTipClicked;
             notifyicon.Icon = myIcon;
-            label1.Text = "Listening for connections at " + LocalIPAddress() + "...";
             //Start a TCP server.
             label1.AllowDrop = true;
-            f = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            f.Bind(new IPEndPoint(IPAddress.Any, 1084));
-            f.Listen(50000);
-            new Thread(new ThreadStart(delegate()
-                {
-
-                    while (true)
-                        new Thread(new ParameterizedThreadStart(delegate(object _socket)
-                            {
-                                Client cli = new Client((Socket)_socket, true, this);
-                                //Ask to allow connection.
-                                if (MessageBox.Show("Client is connecting from " + cli.RemoteIp + ". Allow this connection?", "Incoming Connection", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == System.Windows.Forms.DialogResult.Yes)
-                                {
-
-                                    Console.WriteLine("Client connected from " + cli.RemoteIp);
-                                    clientx.Add(cli);
-                                    listBox1.Items.Add(cli.RemoteIp);
-                                }
-                                else
-                                {
-                                    cli.Disconnect();
-                                }
-                            })).Start(f.Accept());
-                })).Start();
+            
         }
         public string LocalIPAddress()
         {
@@ -98,7 +74,7 @@ namespace LocalFileTransfer
                 Socket p = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
                 try
                 {
-                    p.Connect(new IPEndPoint(IPAddress.Parse(textBox1.Text), 1084));
+                    p.Connect(new IPEndPoint(IPAddress.Parse(textBox1.Text), int.Parse(textBox3.Text)));
                     x = new Client(p, false, this);
                     if (x.Connected)
                     {
@@ -208,6 +184,31 @@ namespace LocalFileTransfer
                     }
                 }
             }
+        }
+
+        private void button2_Click(object sender, EventArgs e) {
+            f = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            f.Bind(new IPEndPoint(IPAddress.Any, int.Parse(textBox2.Text)));
+            f.Listen(50000);
+            label1.Text = "Listening for connections at " + LocalIPAddress() + textBox2.Text + "...";
+            button2.Enabled = false;
+            textBox2.ReadOnly = true;
+            new Thread(new ThreadStart(delegate() {
+
+                    while (true)
+                        new Thread(new ParameterizedThreadStart(delegate(object _socket) {
+                                Client cli = new Client((Socket)_socket, true, this);
+                                //Ask to allow connection.
+                                if (MessageBox.Show("Client is connecting from " + cli.RemoteIp + ". Allow this connection?", "Incoming Connection", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == System.Windows.Forms.DialogResult.Yes) {
+
+                                    Console.WriteLine("Client connected from " + cli.RemoteIp);
+                                    clientx.Add(cli);
+                                    listBox1.Items.Add(cli.RemoteIp);
+                                } else {
+                                    cli.Disconnect();
+                                }
+                            })).Start(f.Accept());
+                })).Start();
         }
     }
 }
