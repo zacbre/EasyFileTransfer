@@ -12,7 +12,6 @@ C:\Users\Zac\Documents\Visual Studio 2012\Projects\LocalFileTransfer\LocalFileTr
 C:\Users\Zac\Documents\Visual Studio 2012\Projects\LocalFileTransfer\LocalFileTransfer\bin\Debug\SecureSocketProtocol2.pdb
 C:\Users\Zac\Documents\GitHub\EasyFileTransfer\LocalFileTransfer\bin\Debug\LocalFileTransfer.exe
 C:\Users\Zac\Documents\GitHub\EasyFileTransfer\LocalFileTransfer\bin\Debug\LocalFileTransfer.pdb
-C:\Users\Zac\Documents\GitHub\EasyFileTransfer\LocalFileTransfer\obj\Debug\LocalFileTransfer.csprojResolveAssemblyReference.cache
 C:\Users\Zac\Documents\GitHub\EasyFileTransfer\LocalFileTransfer\obj\Debug\LocalFileTransfer.Form1.resources
 C:\Users\Zac\Documents\GitHub\EasyFileTransfer\LocalFileTransfer\obj\Debug\LocalFileTransfer.Properties.Resources.resources
 C:\Users\Zac\Documents\GitHub\EasyFileTransfer\LocalFileTransfer\obj\Debug\LocalFileTransfer.csproj.GenerateResource.Cache

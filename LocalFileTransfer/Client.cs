@@ -71,7 +71,8 @@ namespace LocalFileTransfer
                 {
                     //send filesize.
                     FileInfo a = new FileInfo(filename);
-                    sck.Send(BitConverter.GetBytes(a.Length));
+                    byte[] size = BitConverter.GetBytes(a.Length);
+                    sck.Send(size);
                 }
                 else if (buff[0] == 0x01)
                 {
@@ -88,7 +89,7 @@ namespace LocalFileTransfer
                     int p = 0;
                     //progressbar gets maximum of filesize.
                     x.progressBar1.Value = 0;
-                    x.progressBar1.Maximum = (int)a.Length;
+                    x.progressBar1.Maximum = 100;
                     System.Timers.Timer timer;
                     //Set Timer
                     timer = new System.Timers.Timer();
@@ -96,15 +97,35 @@ namespace LocalFileTransfer
                     timer.Interval = 1000; //10000 ms = 10 seconds
                     timer.Enabled = true;
                     timer.Start();
+                    ulong step = 0;
                     using (BinaryReader bin = new BinaryReader(File.OpenRead(filename)))
                         while (p < a.Length)
                         {
-                            sck.Send(bin.ReadBytes(buff.Length));
-                            p += buff.Length;
-                            counter.AddBytes((uint)buff.Length);
-                            if (x.progressBar1.Value + buff.Length > x.progressBar1.Maximum) x.progressBar1.Value = x.progressBar1.Maximum;
-                            else
-                                x.progressBar1.Value += buff.Length;
+                            try
+                            {
+                                //sending buff's length.
+                                step += (ulong)buff.Length;
+                                sck.Send(bin.ReadBytes(buff.Length));
+                                p += buff.Length;
+                                counter.AddBytes((uint)buff.Length);
+                                float af = (float)step / (float)a.Length;
+                                //progressbar equals rounded.
+                                int tot = (int)Math.Round(af * 100);
+                                if (tot < 100)
+                                    x.progressBar1.Value = tot;
+                            }
+                            catch {
+                                x.Text = "FileTransfer";
+                                receiving = false;
+                                timer.Stop();
+                                x.notifyicon.BalloonTipIcon = ToolTipIcon.Error;
+                                x.notifyicon.BalloonTipText = "File Transfer for \"" + filename + "\" has failed!";
+                                x.notifyicon.BalloonTipTitle = "File Transfer";
+                                x.notifyicon.ShowBalloonTip(10000);
+                                x.progressBar1.Value = 0;
+                                sck.BeginReceive(buff, 0, buff.Length - 1, SocketFlags.None, new AsyncCallback(DisconnectListener), sck);
+                                return;
+                            }
                         }
                     x.Text = "FileTransfer";
                     timer.Stop();
@@ -137,29 +158,49 @@ namespace LocalFileTransfer
                                 //convert to int.
                                 byte[] but = new byte[l];
                                 Array.Copy(buff, 0, but, 0, l);
-                                int toreceive = BitConverter.ToInt32(but, 0);
+                                ulong toreceive = BitConverter.ToUInt64(but, 0);
                                 h.Send(new byte[] { 0x02 });
                                 //start the receiving.
                                 x.progressBar1.Value = 0;
-                                x.progressBar1.Maximum = toreceive;
+                                x.progressBar1.Maximum = 100;
                                 System.Timers.Timer timer;
                                 timer = new System.Timers.Timer();
                                 timer.Elapsed += timer_Elapsed1;
                                 timer.Interval = 1000; //10000 ms = 10 seconds
                                 timer.Enabled = true;
                                 timer.Start();
-                                using (BinaryWriter f = new BinaryWriter(File.OpenWrite(Environment.CurrentDirectory + "\\Received\\" + filename)))
+                                ulong step = 0;
+                                ulong total = toreceive;
+                                using (BinaryWriter f = new BinaryWriter(File.Open(Environment.CurrentDirectory + "\\Received\\" + filename, FileMode.Create, FileAccess.Write, FileShare.None)))
                                 {
                                     while (toreceive > 0)
                                     {
-                                        int recd = h.Receive(buff);
+                                        ulong recd = (ulong)h.Receive(buff);
+                                        step += recd;
+                                        if (recd <= 0)
+                                        {
+                                            //uhwat. Filetransfer failed?
+                                            x.Text = "FileTransfer";
+                                            receiving = false;
+                                            timer.Stop();
+                                            x.notifyicon.BalloonTipIcon = ToolTipIcon.Error;
+                                            x.notifyicon.BalloonTipText = "File Transfer for \""+filename+"\" has failed!";
+                                            x.notifyicon.BalloonTipTitle = "File Transfer";
+                                            x.notifyicon.ShowBalloonTip(10000);
+                                            x.progressBar1.Value = 0;
+                                            sck.BeginReceive(buff, 0, buff.Length - 1, SocketFlags.None, new AsyncCallback(DisconnectListener), sck);
+                                            return;
+                                        }
                                         toreceive -= recd;
                                         counter.AddBytes((uint)recd);
                                         //write bytes to file.
-                                        f.Write(buff, 0, recd);
-                                        if (x.progressBar1.Value + recd > x.progressBar1.Maximum) x.progressBar1.Value = x.progressBar1.Maximum;
-                                        else
-                                            x.progressBar1.Value += recd;
+                                        f.Write(buff, 0, (int)recd);
+                                        //divide smaller number and calculate percentage.
+                                        float af = (float)step / (float)total;
+                                        //progressbar equals rounded.
+                                        int tot = (int)Math.Round(af * 100);
+                                        if (tot < 100)
+                                            x.progressBar1.Value = tot;
                                     }
                                 }
                                 timer.Stop();
