@@ -45,6 +45,8 @@
             this.label4 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.button3 = new System.Windows.Forms.Button();
             this.contextMenuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -57,7 +59,7 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(392, 22);
             this.label1.TabIndex = 1;
-            this.label1.Text = "Listening for connections...";
+            this.label1.Text = "Idle.";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // listBox1
@@ -93,7 +95,7 @@
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(-1, 284);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(394, 76);
+            this.label2.Size = new System.Drawing.Size(394, 54);
             this.label2.TabIndex = 3;
             this.label2.Text = "Drop Files Here";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -135,7 +137,7 @@
             // 
             this.button2.Location = new System.Drawing.Point(32, 59);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(120, 23);
+            this.button2.Size = new System.Drawing.Size(57, 23);
             this.button2.TabIndex = 7;
             this.button2.Text = "Listen";
             this.button2.UseVisualStyleBackColor = true;
@@ -144,6 +146,7 @@
             // textBox2
             // 
             this.textBox2.Location = new System.Drawing.Point(32, 34);
+            this.textBox2.Multiline = true;
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(119, 20);
             this.textBox2.TabIndex = 8;
@@ -177,6 +180,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.button3);
             this.groupBox1.Controls.Add(this.textBox2);
             this.groupBox1.Controls.Add(this.button2);
             this.groupBox1.Controls.Add(this.label3);
@@ -200,6 +204,27 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Client";
             // 
+            // label5
+            // 
+            this.label5.AutoEllipsis = true;
+            this.label5.Location = new System.Drawing.Point(0, 338);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(392, 22);
+            this.label5.TabIndex = 14;
+            this.label5.Text = "Idle.";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // button3
+            // 
+            this.button3.Enabled = false;
+            this.button3.Location = new System.Drawing.Point(94, 59);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(57, 23);
+            this.button3.TabIndex = 10;
+            this.button3.Text = "Stop";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -211,6 +236,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.listBox1);
             this.Controls.Add(this.label1);
+            this.Controls.Add(this.label5);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -230,7 +256,7 @@
 
         private System.Windows.Forms.Label label1;
         public System.Windows.Forms.ListBox listBox1;
-        private System.Windows.Forms.Label label2;
+        public System.Windows.Forms.Label label2;
         public System.Windows.Forms.TextBox textBox1;
         public System.Windows.Forms.Button button1;
         private System.Windows.Forms.NotifyIcon notifyIcon1;
@@ -244,6 +270,8 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Button button3;
+        public System.Windows.Forms.Label label5;
     }
 }
 
